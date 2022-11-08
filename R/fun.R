@@ -1,11 +1,11 @@
-#' Get municipality information
+#' Get informatino based on municipality number.
 #'
-#' @param komnr_string
-#'
-#' @return
-#' @export
-#'
+#' @param komnr_string municipality number.
+#' @return A list.
 #' @examples
+#' GetKomnrInfo('1205')
+#'
+#' @export
 GetKomnrInfo <- function(komnr_string){
   library(stringr)
 
