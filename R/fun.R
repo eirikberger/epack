@@ -6,7 +6,7 @@
 #' GetKomnrInfo('1205')
 #'
 #' @export
-GetKomnrInfo <- function(komnr_string){
+GetKomnrInfo <- function(komnr_string, type='countynr'){
   library(stringr)
 
   tmp <- as.character(komnr_string)
@@ -41,5 +41,9 @@ GetKomnrInfo <- function(komnr_string){
   if (num_county==19){string_county = 'Troms'}
   if (num_county==20){string_county = 'Finnmark'}
 
-  return(list(as.integer(tmp), num_knr, num_county, string_county))
+  if type=='countynr': return <- num_county
+  if type=='countyname': return <- string_county
+  if type=='muniynr': return <- num_knr
+  
+  return(return)
 }
