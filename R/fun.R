@@ -12,7 +12,8 @@ GetKomnrInfo <- function(komnr_string){
   tmp <- as.character(komnr_string)
   num_knr <- as.integer(str_match(tmp, "[0-9]{2}$"))
   num_county <- as.integer(str_match(tmp, "^([0-9]{1,2})[0-9]{2}")[,2])
-
+  string_county <- '(missing)'
+  
   if (num_county==1){string_county = 'Østfold'}
   if (num_county==2){string_county = 'Akershus'}
   if (num_county==3){string_county = 'Oslo'}
