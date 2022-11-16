@@ -1,16 +1,27 @@
-#' Get informatino based on municipality number.
+#' Get information based on municipality number.
 #'
 #' @param komnr_string municipality number.
-#' @return A list.
+#' @return An integer
 #' @examples
-#' GetKomnrInfo('1205')
+#' FromKomnrCounty('1205')
 #'
 #' @export
-GetKomnrInfo <- function(komnr_string, type='countynr'){
+FromKomnrCounty <- function(komnr_string, type='countynr'){
   library(stringr)
-  
   tmp <- as.character(komnr_string)
-  num_knr <- as.integer(str_match(tmp, "[0-9]{2}$"))
+  num_county <- as.integer(str_match(tmp, "^([0-9]{1,2})[0-9]{2}")[,2])
+  return(num_county)
+}
+
+#' @param komnr_string municipality number.
+#' @return A string
+#' @examples
+#' FromKomnrCountyname('1205')
+#'
+#' @export
+FromKomnrCountyname <- function(komnr_string, type='countynr'){
+  library(stringr)
+  tmp <- as.character(komnr_string)
   num_county <- as.integer(str_match(tmp, "^([0-9]{1,2})[0-9]{2}")[,2])
   string_county <- '(missing)'
   
@@ -41,9 +52,18 @@ GetKomnrInfo <- function(komnr_string, type='countynr'){
   if (num_county==19){string_county = 'Troms'}
   if (num_county==20){string_county = 'Finnmark'}
   
-  if (type=="countynr"){return <- num_county}
-  if (type=='countyname'){return <- string_county}
-  if (type=='muniynr'){return <- num_knr}
-  
-  return(return)
+  return(string_county)
+}
+
+#' @param komnr_string municipality number.
+#' @return An integer
+#' @examples
+#' FromKomnrKomnr('1205')
+#'
+#' @export
+FromKomnrKomnr <- function(komnr_string, type='countynr'){
+  library(stringr)
+  tmp <- as.character(komnr_string)
+  num_knr <- as.integer(str_match(tmp, "[0-9]{2}$"))
+  return(num_knr)
 }
