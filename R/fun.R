@@ -51,7 +51,7 @@ FromKomnrCountyname <- Vectorize(function(komnr_string, type='countynr'){
 
     if (num_county==19){string_county <- 'Troms'}
     if (num_county==20){string_county <- 'Finnmark'}
-  })
+  }, silent=TRUE)
 
   return(string_county)
 })
