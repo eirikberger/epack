@@ -29,7 +29,7 @@ FromKomnrCountyname <- Vectorize(function(komnr_string, type='countynr'){
     if (num_county==2){string_county <- 'Akershus'}
     if (num_county==3){string_county <- 'Oslo'}
 
-    if (num_county==4){string_county <- 'Hermark'}
+    if (num_county==4){string_county <- 'Hedemark'}
     if (num_county==5){string_county <- 'Oppland'}
     if (num_county==6){string_county <- 'Buskerud'}
 
