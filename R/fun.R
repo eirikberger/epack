@@ -24,7 +24,7 @@ FromKomnrCounty <- function(komnr_string, type='countynr'){
 FromKomnrCountyname <- function(komnr_string) {
   num_cores <- detectCores() / 4 - 1
 
-  result <- mclapply(komnr_string, FromKomnrCountyname_single, mc.cores = num_cores)
+  result <- unlist(mclapply(komnr_string, FromKomnrCountyname_single, mc.cores = num_cores))
 
   return(result)
 }
