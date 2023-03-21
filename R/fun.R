@@ -43,24 +43,31 @@ FromKomnrCountyname <- function(komnr_string) {
     '20' = 'Finnmark'
   )
 
-  FromKomnrCountyname_single <- function(komnr_string) {
-    tmp <- as.character(komnr_string)
-    num_county <- as.integer(stringr::str_match(tmp, "^([0-9]{1,2})[0-9]{2}")[,2])
-
-    string_county <- county_name_map[as.character(num_county)]
-    if (is.null(string_county)) {
-      string_county <- '(missing)'
-    }
-
-    return(string_county)
-  }
-
   num_cores <- detectCores() / 4 - 1
 
   result <- mclapply(komnr_vector, FromKomnrCountyname_single, mc.cores = num_cores)
 
   return(result)
 }
+
+#' @param komnr_string municipality number.
+#' @return A string
+#' @examples
+#' FromKomnrCountyname_single('1205')
+#'
+#' @export
+FromKomnrCountyname_single <- function(komnr_string) {
+  tmp <- as.character(komnr_string)
+  num_county <- as.integer(stringr::str_match(tmp, "^([0-9]{1,2})[0-9]{2}")[,2])
+
+  string_county <- county_name_map[as.character(num_county)]
+  if (is.null(string_county)) {
+    string_county <- '(missing)'
+  }
+
+  return(string_county)
+}
+
 
 #' @param komnr_string municipality number.
 #' @return An integer

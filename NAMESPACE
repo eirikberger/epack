@@ -2,4 +2,5 @@
 
 export(FromKomnrCounty)
 export(FromKomnrCountyname)
+export(FromKomnrCountyname_single)
 export(FromKomnrKomnr)
