@@ -13,6 +13,8 @@ FromKomnrCounty <- function(komnr_string, type='countynr'){
   return(num_county)
 }
 
+#' Get information based on municipality number.
+#'
 #' @param komnr_string municipality number.
 #' @return A string
 #' @examples
@@ -50,6 +52,8 @@ FromKomnrCountyname <- function(komnr_string) {
   return(result)
 }
 
+#' Get information based on municipality number.
+#'
 #' @param komnr_string municipality number.
 #' @return A string
 #' @examples
@@ -68,7 +72,8 @@ FromKomnrCountyname_single <- function(komnr_string) {
   return(string_county)
 }
 
-
+#' Get information based on municipality number.
+#'
 #' @param komnr_string municipality number.
 #' @return An integer
 #' @examples
