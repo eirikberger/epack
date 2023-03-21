@@ -22,6 +22,22 @@ FromKomnrCounty <- function(komnr_string, type='countynr'){
 #'
 #' @export
 FromKomnrCountyname <- function(komnr_string) {
+  num_cores <- detectCores() / 4 - 1
+
+  result <- mclapply(komnr_string, FromKomnrCountyname_single, mc.cores = num_cores)
+
+  return(result)
+}
+
+#' Get information based on municipality number.
+#'
+#' @param komnr_string municipality number.
+#' @return A string
+#' @examples
+#' FromKomnrCountyname_single('1205')
+#'
+#' @export
+FromKomnrCountyname_single <- function(komnr_string) {
   county_name_map <- c(
     '1'  = 'Østfold',
     '2'  = 'Akershus',
@@ -45,22 +61,6 @@ FromKomnrCountyname <- function(komnr_string) {
     '20' = 'Finnmark'
   )
 
-  num_cores <- detectCores() / 4 - 1
-
-  result <- mclapply(komnr_string, FromKomnrCountyname_single, mc.cores = num_cores)
-
-  return(result)
-}
-
-#' Get information based on municipality number.
-#'
-#' @param komnr_string municipality number.
-#' @return A string
-#' @examples
-#' FromKomnrCountyname_single('1205')
-#'
-#' @export
-FromKomnrCountyname_single <- function(komnr_string) {
   tmp <- as.character(komnr_string)
   num_county <- as.integer(stringr::str_match(tmp, "^([0-9]{1,2})[0-9]{2}")[,2])
 
