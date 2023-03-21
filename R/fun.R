@@ -19,42 +19,48 @@ FromKomnrCounty <- function(komnr_string, type='countynr'){
 #' FromKomnrCountyname('1205')
 #'
 #' @export
-FromKomnrCountyname <- Vectorize(function(komnr_string, type='countynr'){
-  tmp <- as.character(komnr_string)
-  num_county <- as.integer(stringr::str_match(tmp, "^([0-9]{1,2})[0-9]{2}")[,2])
-  string_county <- '(missing)'
+FromKomnrCountyname <- function(komnr_string) {
+  county_name_map <- c(
+    '1'  = 'Østfold',
+    '2'  = 'Akershus',
+    '3'  = 'Oslo',
+    '4'  = 'Hedemark',
+    '5'  = 'Oppland',
+    '6'  = 'Buskerud',
+    '7'  = 'Vestfold',
+    '8'  = 'Telemark',
+    '9'  = 'Aust-Agder',
+    '10' = 'Vest-Agder',
+    '11' = 'Rogaland',
+    '12' = 'Hordaland',
+    '13' = 'Bergen',
+    '14' = 'Sogn og Fjordane',
+    '15' = 'Møre og Romsdal',
+    '16' = 'Sør-Trøndelag',
+    '17' = 'Nord-Trøndelag',
+    '18' = 'Nordland',
+    '19' = 'Troms',
+    '20' = 'Finnmark'
+  )
 
-  try({
-    if (num_county==1){string_county <- 'Østfold'}
-    if (num_county==2){string_county <- 'Akershus'}
-    if (num_county==3){string_county <- 'Oslo'}
+  FromKomnrCountyname_single <- function(komnr_string) {
+    tmp <- as.character(komnr_string)
+    num_county <- as.integer(stringr::str_match(tmp, "^([0-9]{1,2})[0-9]{2}")[,2])
 
-    if (num_county==4){string_county <- 'Hedemark'}
-    if (num_county==5){string_county <- 'Oppland'}
-    if (num_county==6){string_county <- 'Buskerud'}
+    string_county <- county_name_map[as.character(num_county)]
+    if (is.null(string_county)) {
+      string_county <- '(missing)'
+    }
 
-    if (num_county==7){string_county <- 'Vestfold'}
-    if (num_county==8){string_county <- 'Telemark'}
-    if (num_county==9){string_county <- 'Aust-Agder'}
+    return(string_county)
+  }
 
-    if (num_county==10){string_county <- 'Vest-Agder'}
-    if (num_county==11){string_county <- 'Rogaland'}
-    if (num_county==12){string_county <- 'Hordaland'}
+  num_cores <- detectCores() / 4 - 1
 
-    if (num_county==13){string_county <- 'Bergen'}
-    if (num_county==14){string_county <- 'Sogn og Fjordane'}
-    if (num_county==15){string_county <- 'Møre og Romsdal'}
+  result <- mclapply(komnr_vector, FromKomnrCountyname_single, mc.cores = num_cores)
 
-    if (num_county==16){string_county <- 'Sør-Trøndelag'}
-    if (num_county==17){string_county <- 'Nord-Trøndelag'}
-    if (num_county==18){string_county <- 'Nordland'}
-
-    if (num_county==19){string_county <- 'Troms'}
-    if (num_county==20){string_county <- 'Finnmark'}
-  }, silent=TRUE)
-
-  return(string_county)
-})
+  return(result)
+}
 
 #' @param komnr_string municipality number.
 #' @return An integer
